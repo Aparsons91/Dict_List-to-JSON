@@ -10,7 +10,7 @@ socket.send_pyobj(list_of_dicts)
 response = socket.recv()
 
 socket.send_string("Desired_filename.json")
-response = socket.recv()
+filepath_to_json = socket.recv()
 
 To end service:
 socket.send_pyobj("exit")

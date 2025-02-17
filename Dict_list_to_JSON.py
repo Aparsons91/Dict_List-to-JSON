@@ -2,6 +2,7 @@
 import time
 import zmq
 import json
+from pathlib import Path
 
 context = zmq.Context()
 socket = context.socket(zmq.REP)
@@ -14,7 +15,9 @@ while True:
         break
     socket.send_string("Received list of dictionaries")
     filename = socket.recv_string()
-    socket.send_string(f"Received filename {filename}")
+    current_dir = Path.cwd()
+    current_dir.joinpath(filename)
+    socket.send_string(f"File Location {current_dir}")
     print(f"Received request: {message}")
     with open(filename, "w") as json_file:
         json.dump(message, json_file, indent=4)
