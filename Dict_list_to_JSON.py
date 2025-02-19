@@ -1,5 +1,4 @@
-
-import time
+# Microservice A -Anthony Parsons. Outline in Readme.md
 import zmq
 import json
 from pathlib import Path
@@ -17,9 +16,9 @@ while True:
     filename = socket.recv_string()
     current_dir = Path.cwd()
     current_dir.joinpath(filename)
-    socket.send_string(f"File Location {current_dir}")
-    print(f"Received request: {message}")
     with open(filename, "w") as json_file:
         json.dump(message, json_file, indent=4)
+    socket.send_string(f"File Location {current_dir}")
+    
     
 socket.close()
